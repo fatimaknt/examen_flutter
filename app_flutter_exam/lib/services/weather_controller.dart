@@ -33,43 +33,42 @@ class WeatherController with ChangeNotifier {
   ];
 
   // Message dynamique affiché pendant le chargement
-  String _loadingMessage = "Nous téléchargeons les données...";
+         String _loadingMessage = "Nous téléchargeons les données...";
   String get loadingMessage => _loadingMessage;
 
   // Logique principale : Récupération séquentielle avec délai
   Future<void> startProgress() async {
     // Réinitialisation des états
     _progress = 0.0;
-    _isLoading = true;
+         _isLoading = true;
     _errorMessage = null;
-    _weathers = [];
+         _weathers = [];
     _loadingMessage = "Démarrage du téléchargement...";
-    notifyListeners();
+          notifyListeners();
 
     try {
       for (int i = 0; i < cityNames.length; i++) {
            String city = cityNames[i];
 
-        // Mise à jour du message
-          _updateLoadingMessage(i);
+    // Mise à jour du message
+           _updateLoadingMessage(i);
         notifyListeners();
 
-        // Appel API
-          final weather = await _service.fetchWeather(city);
+              // Appel API
+            final weather = await _service.fetchWeather(city);
           _weathers.add(weather);
-
-        // Mise à jour de la progression
+ // Mise à jour de la progression
         _progress = (i + 1) / cityNames.length;
         notifyListeners();
 
         // Pause de 2 secondes entre les appels (sauf pour le dernier)
            if (i < cityNames.length - 1) {
-          await Future.delayed(const Duration(seconds: 2));
+                  await Future.delayed(const Duration(seconds: 2));
            }
       }
 
       // Fin du chargement
-         _isLoading = false;
+ _isLoading = false;
       _loadingMessage = "Téléchargement terminé !";
          notifyListeners();
     } catch (e) {
@@ -77,7 +76,7 @@ class WeatherController with ChangeNotifier {
         _errorMessage =
           "Oups ! Une erreur est survenue. Veuillez vérifier votre connexion.";
         _isLoading = false;
-      notifyListeners();
+    notifyListeners();
       // On rethrow l'erreur pour que l'UI puisse l'afficher si besoin via un SnackBar par ex.
       // rethrow;
     }
@@ -88,7 +87,7 @@ class WeatherController with ChangeNotifier {
        if (index == 0) {
             _loadingMessage = "Nous téléchargeons les données...";
     } else if (index == cityNames.length - 1) {
-        _loadingMessage = "C'est presque fini...";
+                _loadingMessage = "C'est presque fini...";
         } else {
       _loadingMessage = "Chargement de la météo à ${cityNames[index]}...";
       }
