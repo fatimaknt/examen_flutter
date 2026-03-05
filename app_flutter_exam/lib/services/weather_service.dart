@@ -12,7 +12,7 @@ class WeatherService {
   Future<Weather> fetchWeather(String city) async {
     try {
             final url = Uri.parse(
-        '$baseUrl?q=$city&appid=$apiKey&units=metric&lang=fr',
+        '$baseUrl?q=$city&appid=$apiKey&units=metric',
         );
             final response = await http.get(url);
 
