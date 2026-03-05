@@ -3,12 +3,12 @@ import 'package:app_flutter_exam/models/constants.dart';
 
 class WeatherItem extends StatelessWidget {
   const WeatherItem({
-    super.key,
+    Key? key,
     required this.value,
     required this.text,
     required this.unit,
     required this.imageUrl,
-  });
+  }) : super(key: key);
 
   final int value;
   final String text;
@@ -22,7 +22,6 @@ class WeatherItem extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-            // ignore: deprecated_member_use
             color: Constants.textColor(context).withOpacity(0.6),
           ),
         ),
@@ -46,7 +45,7 @@ class WeatherItem extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Constants.textColor(context),
           ),
-        ),
+        )
       ],
     );
   }
